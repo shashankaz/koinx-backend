@@ -4,6 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 import { connectDB } from "./config/db.js";
 import { fetchCryptoData } from "./service/fetchCryptoData.js";
+import cryptoRoutes from "./routes/crypto.routes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
     message: "API is live!",
   });
 });
+
+app.use("/", cryptoRoutes);
 
 cron.schedule("0 */2 * * *", fetchCryptoData);
 
